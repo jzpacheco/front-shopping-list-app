@@ -5,22 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Compras</title> 
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
     <script src="/node_modules/angular/angular.js"></script>
     <script src="app.component.js"></script>
 </head>
 <body ng-controller="shoppingListCtrl">
-    <div >
+    <div>
+        <button ng-click="openModal()" class="btn btn-primary">Abrir Modal</button>
+      
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Formulário</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form ng-submit="salvarDados()">
+                  <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" class="form-control" ng-model="nome" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="idade">Idade:</label>
+                    <input type="text" class="form-control" ng-model="idade" required>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
         <table class="table">
         <tr >
             <th>Nome</th>
             <th>Itens</th>
+            <th>Data</th>
         </tr>
         <tr  ng-repeat="data in myData">
-            <td>{{data.name}}</td>
+            <td>{{data.name?data.name: 'Vazio'}}</td>
             <td>{{data.itens}}</td>
-            <td>{{data.createdIn}}</td>
+            <td>{{data.createdIn | date:'dd/MM/yyyy'}}</td>
         </tr>
     </table>
     </div>
